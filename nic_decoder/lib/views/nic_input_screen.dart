@@ -24,7 +24,7 @@ class NICInputScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const Text(
-                "Enter your NIIC Number here.",
+                "Enter your NIC Number here.",
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 30),
