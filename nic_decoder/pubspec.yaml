@@ -21,7 +21,8 @@ dev_dependencies:
 flutter:
   assets:
     - lib\assets\sri_lanka_emblem.png  # ✅ Correct
-
+    - lib\assets\arrow.png  # ✅ Correct
+    - lib\assets\flag.png  # ✅ Correct
 fonts:
   - family: Raleway
     fonts:
