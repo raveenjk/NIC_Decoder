@@ -1,68 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/nic_controller.dart';
 
 class NICInputScreen extends StatelessWidget {
-  final TextEditingController nicController = TextEditingController();
+  final NicController nicController = Get.put(NicController());
+  final TextEditingController nicInputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Nic Decoder",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+      appBar: AppBar(
+        title: const Text("NIC Decoder"),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            
+            // **🔶 Add Sri Lanka Emblem at the top 🔶**
+            Image.asset('lib/assets/sri_lanka_emblem.png', width: 120, height: 120),
+            
+            const SizedBox(height: 20),
+            const Text(
+              "Enter Your NIC Number",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: nicInputController,
+              decoration: InputDecoration(
+                hintText: "Enter NIC (e.g. 200010501895)",
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                String nic = nicInputController.text.trim();
+                if (nic.isNotEmpty) {
+                  Get.toNamed('/result', arguments: {'nic': nic});
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                backgroundColor: Colors.purple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
                 ),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                "Enter your NIC Number here.",
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+              child: const Text(
+                "Decode",
+                style: TextStyle(fontSize: 18, color: Colors.white),
               ),
-              const SizedBox(height: 30),
-              TextField(
-                controller: nicController,
-                decoration: InputDecoration(
-                  hintText: "Enter NIC Number",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15, horizontal: 10),
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  String nic = nicController.text.trim();
-                  if (nic.isNotEmpty) {
-                    Get.toNamed('/result', arguments: {'nic': nic});
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 50, vertical: 15),
-                  backgroundColor: Colors.purple,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                ),
-                child: const Text(
-                  "Decode",
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
