@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/nic_controller.dart';
 
-
 class NICResultScreen extends StatelessWidget {
   final NicController nicController = Get.put(NicController());
 
@@ -15,11 +14,9 @@ class NICResultScreen extends StatelessWidget {
     nicController.decodeNIC(nic);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text("Your NIC Details"),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         centerTitle: true,
       ),
       body: Padding(
@@ -28,37 +25,24 @@ class NICResultScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-            const Icon(Icons.account_circle, size: 80, color: Colors.blue),
+            Icon(Icons.account_circle, size: 80, color: Theme.of(context).primaryColor),
             const SizedBox(height: 10),
             Obx(() => Text(
                   "Your NIC: ${nicController.nicNumber.value}",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                 )),
             const SizedBox(height: 30),
-            Obx(() => _nicDetailTile("Date of Birth Year", nicController.birthYear.value)),
-            Obx(() => _nicDetailTile("Date of Birth Date", nicController.birthDate.value)),
-            Obx(() => _nicDetailTile("Date of Birth Day", nicController.birthDay.value)),
-            Obx(() => _nicDetailTile("Gender", nicController.gender.value)),
-            Obx(() => _nicDetailTile("Age", nicController.age.value)),
+            Obx(() => _nicDetailTile("Date of Birth Year", nicController.birthYear.value, context)),
+            Obx(() => _nicDetailTile("Date of Birth Date", nicController.birthDate.value, context)),
+            Obx(() => _nicDetailTile("Date of Birth Day", nicController.birthDay.value, context)),
+            Obx(() => _nicDetailTile("Gender", nicController.gender.value, context)),
+            Obx(() => _nicDetailTile("Age", nicController.age.value, context)),
             const Spacer(),
             ElevatedButton(
               onPressed: () {
                 Get.back();
               },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                backgroundColor: Colors.purple,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
-              child: const Text(
-                "Regenerate",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
+              child: const Text("Regenerate"),
             ),
             const SizedBox(height: 30),
           ],
@@ -67,18 +51,18 @@ class NICResultScreen extends StatelessWidget {
     );
   }
 
-  Widget _nicDetailTile(String title, String value) {
+  Widget _nicDetailTile(String title, String value, BuildContext context) {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
-        leading: const CircleAvatar(
-          backgroundColor: Colors.blueAccent,
-          child: Icon(Icons.info, color: Colors.white),
+        leading: CircleAvatar(
+          backgroundColor: Theme.of(context).primaryColor,
+          child: const Icon(Icons.info, color: Colors.white),
         ),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(value),
+        title: Text(title, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+        subtitle: Text(value, style: Theme.of(context).textTheme.bodyMedium),
       ),
     );
   }
