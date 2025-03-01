@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'views/nic_input_screen.dart';
-import 'result/nic_result_screen.dart'; // Import NICResultScreen
+import 'result/nic_result_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'NIC Decoder',
-      theme: ThemeData.light(),
-      home: NICInputScreen(),
+      initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => NICInputScreen()), // Default route
-        GetPage(name: '/result', page: () => NICResultScreen()), // Register the /result route
+        GetPage(name: '/', page: () => NICInputScreen()),
+        GetPage(name: '/result', page: () => NICResultScreen()),
       ],
     );
   }
