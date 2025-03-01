@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/nic_controller.dart';
+
 
 class NICResultScreen extends StatelessWidget {
+  final NicController nicController = Get.put(NicController());
+
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> nicData = Get.arguments ?? {};
-    String nic = nicData['nic'] ?? 'Unknown';
+    String nic = nicData['nic'] ?? '';
+
+    // Decode NIC when this screen is opened
+    nicController.decodeNIC(nic);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -21,28 +28,28 @@ class NICResultScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-            Icon(Icons.account_circle, size: 80, color: Colors.blue),
+            const Icon(Icons.account_circle, size: 80, color: Colors.blue),
             const SizedBox(height: 10),
-            Text(
-              "Your NIC: $nic",
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Obx(() => Text(
+                  "Your NIC: ${nicController.nicNumber.value}",
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
             const SizedBox(height: 30),
-            _nicDetailTile("Date of Birth Year", "1990"),
-            _nicDetailTile("Date of Birth Date", "15"),
-            _nicDetailTile("Date of Birth Day", "Monday"),
-            _nicDetailTile("Gender", "Male"),
+            Obx(() => _nicDetailTile("Date of Birth Year", nicController.birthYear.value)),
+            Obx(() => _nicDetailTile("Date of Birth Date", nicController.birthDate.value)),
+            Obx(() => _nicDetailTile("Date of Birth Day", nicController.birthDay.value)),
+            Obx(() => _nicDetailTile("Gender", nicController.gender.value)),
+            Obx(() => _nicDetailTile("Age", nicController.age.value)),
             const Spacer(),
             ElevatedButton(
               onPressed: () {
                 Get.back();
               },
               style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 backgroundColor: Colors.purple,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
@@ -66,7 +73,7 @@ class NICResultScreen extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
-        leading: CircleAvatar(
+        leading: const CircleAvatar(
           backgroundColor: Colors.blueAccent,
           child: Icon(Icons.info, color: Colors.white),
         ),
