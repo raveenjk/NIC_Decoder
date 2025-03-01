@@ -21,7 +21,7 @@ class NICResultScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Image.asset('lib/assets/arrow.png', width: 24, height: 24), // Custom back button
+          icon: Image.asset('lib/assets/arrow.png', width: 34, height: 34), // Custom back button
           onPressed: () {
             Get.back();
           },
@@ -33,7 +33,7 @@ class NICResultScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 10),
-            Image.asset('lib/assets/flag.png', width: 100, height: 100), // Add flag image
+            Image.asset('lib/assets/flag.png', width: 120, height: 120), // Add flag image
             const SizedBox(height: 10),
             Obx(() => Text(
                   "Your NIC: ${nicController.nicNumber.value}",
