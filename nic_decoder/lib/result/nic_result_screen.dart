@@ -21,7 +21,7 @@ class NICResultScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Image.asset('lib/assets/arrow.png', width: 34, height: 34), // Custom back button
+          icon: Image.asset('lib/assets/arrow.png', width: 24, height: 24), // Custom back button
           onPressed: () {
             Get.back();
           },
@@ -33,7 +33,7 @@ class NICResultScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 10),
-            Image.asset('lib/assets/flag.png', width: 120, height: 120), // Add flag image
+            Image.asset('lib/assets/flag.png', width: 100, height: 100), // Flag image below title
             const SizedBox(height: 10),
             Obx(() => Text(
                   "Your NIC: ${nicController.nicNumber.value}",
@@ -78,9 +78,9 @@ class NICResultScreen extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
-        leading: const CircleAvatar(
-          backgroundColor: Colors.blueAccent,
-          child: Icon(Icons.info, color: Colors.white),
+        leading: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          child: Image.asset('lib/assets/star.png', width: 30, height: 30), // Custom Star Icon
         ),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(value),
