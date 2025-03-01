@@ -1,97 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/nic_controller.dart';
 
 class NICResultScreen extends StatelessWidget {
-  final NicController controller = Get.find<NicController>();
-
-  NICResultScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> nicData = Get.arguments ?? {};
+    String nic = nicData['nic'] ?? 'Unknown';
+
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF003249), // Deep Navy
-        title: const Text(
-          'NIC DECODER',
-          style: TextStyle(color: Color(0xFFE7C582), fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+        title: const Text("Your NIC Details"),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text("YOUR NIC DETAILS", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 15),
-
-            _infoTile("1.) Date of Birth (Year):", controller.birthYear),
-            _infoTile("2.) Date of Birth (Date):", controller.birthDate),
-            _infoTile("3.) Date of Birth (Day):", controller.birthDay),
-            _infoTile("4.) Age:", controller.age),
-            _infoTile("5.) Gender:", controller.gender),
-
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => Get.back(),
-              child: const Text("Regenerate"),
+            Icon(Icons.account_circle, size: 80, color: Colors.blue),
+            const SizedBox(height: 10),
+            Text(
+              "Your NIC: $nic",
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+            const SizedBox(height: 30),
+            _nicDetailTile("Date of Birth Year", "1990"),
+            _nicDetailTile("Date of Birth Date", "15"),
+            _nicDetailTile("Date of Birth Day", "Monday"),
+            _nicDetailTile("Gender", "Male"),
+            const Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                Get.back();
+              },
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                backgroundColor: Colors.purple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+              child: const Text(
+                "Regenerate",
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ),
+            const SizedBox(height: 30),
           ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        height: 50,
-        decoration: const BoxDecoration(
-          color: Color(0xFF003249), // Footer color
-          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-        ),
-        child: const Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.circle, size: 8, color: Colors.black),
-              SizedBox(width: 5),
-              Icon(Icons.circle, size: 8, color: Colors.black),
-            ],
-          ),
         ),
       ),
     );
   }
 
-  Widget _infoTile(String label, RxString value) {
-    return Obx(() => Container(
-          width: double.infinity, // Makes it full width
-          margin: const EdgeInsets.symmetric(vertical: 6), // Adds spacing between tiles
-          decoration: BoxDecoration(
-            color: Colors.white, // Background color
-            borderRadius: BorderRadius.circular(20), // Fully rounded corners
-            border: Border.all(color: const Color(0xFF003249), width: 2), // Border color
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black26, // Soft shadow
-                blurRadius: 6, // Increases blur effect
-                offset: Offset(2, 4), // Moves shadow slightly
-              ),
-            ],
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16), // Box padding
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black87),
-              ),
-              const SizedBox(height: 4), // Spacing between title & value
-              Text(
-                value.value,
-                style: const TextStyle(fontSize: 18, color: Color.fromARGB(155, 0, 0, 0)),
-              ),
-            ],
-          ),
-        ));
+  Widget _nicDetailTile(String title, String value) {
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.blueAccent,
+          child: Icon(Icons.info, color: Colors.white),
+        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(value),
+      ),
+    );
   }
 }
