@@ -33,6 +33,13 @@ class AppTheme {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
+      cardTheme: CardTheme(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 3,
+      ),
     );
   }
 }
