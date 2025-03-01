@@ -11,8 +11,9 @@ class NICInputScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("NIC Decoder"),
-        backgroundColor: Colors.transparent,
+        title: const Text("N I C    D e c o d e r"),
+        titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+        backgroundColor: Colors.purple,
         elevation: 0,
         centerTitle: true,
       ),
@@ -23,8 +24,8 @@ class NICInputScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             
-            // **🔶 Add Sri Lanka Emblem at the top 🔶**
-            Image.asset('lib/assets/sri_lanka_emblem.png', width: 120, height: 120),
+            // Add Sri Lanka Emblem at the top
+            Image.asset('lib/assets/sri_lanka_emblem.png', width: 180, height: 180),
             
             const SizedBox(height: 20),
             const Text(
@@ -35,7 +36,7 @@ class NICInputScreen extends StatelessWidget {
             TextField(
               controller: nicInputController,
               decoration: InputDecoration(
-                hintText: "Enter NIC (e.g. 200010501895)",
+                hintText: "Enter NIC (e.g. 2000xxxx1796)",
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               ),
               keyboardType: TextInputType.number,
