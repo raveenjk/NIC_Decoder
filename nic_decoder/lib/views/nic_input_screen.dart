@@ -14,7 +14,7 @@ class NICInputScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF003249), // Deep Navy
         title: const Text(
-          'NIC DECODER',
+          'NIC DECODER',// Title
           style: TextStyle(color: Color(0xFFE7C582), fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
