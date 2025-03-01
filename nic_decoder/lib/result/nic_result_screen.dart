@@ -14,44 +14,56 @@ class NICResultScreen extends StatelessWidget {
     nicController.decodeNIC(nic);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Your NIC Details"),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Image.asset('lib/assets/arrow.png', width: 24, height: 24), // Use custom back button
+          icon: Image.asset('lib/assets/arrow.png', width: 24, height: 24), // Custom back button
           onPressed: () {
             Get.back();
           },
         ),
       ),
-
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 20),
-            Icon(Icons.account_circle, size: 80, color: Theme.of(context).primaryColor),
+            const SizedBox(height: 10),
+            Image.asset('lib/assets/flag.png', width: 100, height: 100), // Add flag image
             const SizedBox(height: 10),
             Obx(() => Text(
                   "Your NIC: ${nicController.nicNumber.value}",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 )),
-            const SizedBox(height: 30),
-            Obx(() => _nicDetailTile("Date of Birth Year", nicController.birthYear.value, context)),
-            Obx(() => _nicDetailTile("Date of Birth Date", nicController.birthDate.value, context)),
-            Obx(() => _nicDetailTile("Date of Birth Day", nicController.birthDay.value, context)),
-            Obx(() => _nicDetailTile("Gender", nicController.gender.value, context)),
-            Obx(() => _nicDetailTile("Age", nicController.age.value, context)),
+            const SizedBox(height: 20),
+            Obx(() => _nicDetailTile("Date of Birth Year", nicController.birthYear.value)),
+            Obx(() => _nicDetailTile("Date of Birth Date", nicController.birthDate.value)),
+            Obx(() => _nicDetailTile("Date of Birth Day", nicController.birthDay.value)),
+            Obx(() => _nicDetailTile("Gender", nicController.gender.value)),
+            Obx(() => _nicDetailTile("Age", nicController.age.value)),
             const Spacer(),
             ElevatedButton(
               onPressed: () {
                 Get.back();
               },
-              child: const Text("Regenerate"),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                backgroundColor: Colors.purple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+              child: const Text(
+                "Regenerate",
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
             ),
             const SizedBox(height: 30),
           ],
@@ -60,18 +72,18 @@ class NICResultScreen extends StatelessWidget {
     );
   }
 
-  Widget _nicDetailTile(String title, String value, BuildContext context) {
+  Widget _nicDetailTile(String title, String value) {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Theme.of(context).primaryColor,
-          child: const Icon(Icons.info, color: Colors.white),
+        leading: const CircleAvatar(
+          backgroundColor: Colors.blueAccent,
+          child: Icon(Icons.info, color: Colors.white),
         ),
-        title: Text(title, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
-        subtitle: Text(value, style: Theme.of(context).textTheme.bodyMedium),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(value),
       ),
     );
   }
