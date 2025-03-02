@@ -76,6 +76,7 @@ Feel free to **fork** this repository, create a new **branch**, and submit a **p
 
 ### **📬 Contact**  
 💬 If you have any questions, reach out via [GitHub Issues](https://github.com/raveenjk/NIC_Decoder/issues).  
+Email: raveenmadhawa48@gmail.com
 
 🚀 **Happy Coding!** 🎉
 
